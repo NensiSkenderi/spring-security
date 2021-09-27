@@ -1,9 +1,14 @@
 package com.security.learning.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity //basic auth
@@ -17,10 +22,21 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                .anyRequest()
                .authenticated()
                .and()
-               .httpBasic();//i want to use basic auth
-        //so the client needs to specify username and passw
+               .httpBasic();
+    }
 
-        //here you dont have the option to logout because username
-        //and passw is sent to every request
+    //to create our in memory user we override this
+
+    @Override
+    @Bean
+    protected UserDetailsService userDetailsService() {
+        //this is how we retrieve our users from the database
+        //return super.userDetailsService()
+        UserDetails nensi = User.builder()
+                .username("nensiskenderi")
+                .password("password")
+                .roles("STUDENT") //this is ROLE_STUDENT
+                .build();
+        return new InMemoryUserDetailsManager(nensi);
     }
 }
