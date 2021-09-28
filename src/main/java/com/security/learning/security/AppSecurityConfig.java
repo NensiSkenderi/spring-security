@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
-@EnableWebSecurity //basic auth
+@EnableWebSecurity
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -24,13 +24,12 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/", "/js").permitAll()
+                .antMatchers("/api/**").hasRole(ApplicationUserRole.STUDENT.name()) //role based auth to protect our apis
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
     }
-
-    //to create our in memory user we override this
 
     @Override
     @Bean
