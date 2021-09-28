@@ -21,13 +21,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-       http
-               .authorizeRequests()
-               .antMatchers("/","index","/css/","/js").permitAll()
-               .anyRequest()
-               .authenticated()
-               .and()
-               .httpBasic();
+        http
+                .authorizeRequests()
+                .antMatchers("/", "index", "/css/", "/js").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
     }
 
     //to create our in memory user we override this
@@ -40,8 +40,15 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails nensi = User.builder()
                 .username("nensi")
                 .password(passwordEncoder.encode("nensi"))
-                .roles("STUDENT") //this is ROLE_STUDENT
+                .roles(ApplicationUserRole.STUDENT.name()) //this is ROLE_STUDENT
                 .build();
-        return new InMemoryUserDetailsManager(nensi);
+
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("admin"))
+                .roles(ApplicationUserRole.ADMIN.name()) //this is ROLE_ADMIN
+                .build();
+
+        return new InMemoryUserDetailsManager(nensi, admin);
     }
 }
