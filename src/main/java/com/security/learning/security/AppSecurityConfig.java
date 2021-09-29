@@ -43,9 +43,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin().permitAll()
-                .defaultSuccessUrl("/courses", true);
-                //.loginPage("/login").permitAll(); //switching to form based auth
+                .formLogin().loginPage("/login").permitAll()
+                .defaultSuccessUrl("/courses", true)
+                .and()
+                .rememberMe(); //default to 2 weeks
     }
 
     @Override

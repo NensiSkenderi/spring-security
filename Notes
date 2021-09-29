@@ -6,10 +6,17 @@
 
 client POST username & pass, server validates and returns OK + Cookie SESSION_ID
 and then every request from client to server is done thru SESSION_ID and
-now server validates SESSION_ID
+now server validates SESSION_ID ---- (by default expires after 30 mins of inactivity)
 
 2-Basic Auth
     Authorzation: Basic JDSKFGSJB4et5435kdfsf==rgd
     HTTPS recommended
     cant logout
     simple and fast
+
+--------------------------
+Remember me cookie (2 weeks default)
+it contains
+    username,
+    expiration time,
+    md5 hash of the above 2 values
