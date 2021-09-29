@@ -48,8 +48,16 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/courses", true)
                 .and()
-                .rememberMe().tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21)) //extends session to 21 days
-                .key("smthverysecured"); //key which is used for md5 hash
+                .rememberMe()
+                    .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21)) //extends session to 21 days
+                    .key("smthverysecured")
+                .and()
+                .logout()
+                        .logoutUrl("/logout") //not a best practice to use GET for loging out
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID","remember-me") //we remove cookies when we logout
+                        .logoutSuccessUrl("/login"); //key which is used for md5 hash
     }
 
     @Override
