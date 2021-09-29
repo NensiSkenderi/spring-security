@@ -13,4 +13,9 @@ public class LoginController {
         return "login";
     }
 
+    @GetMapping("courses")
+    public String getCourses(){
+        return "courses";
+    }
+
 }
