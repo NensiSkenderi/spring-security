@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import java.util.concurrent.TimeUnit;
+
 import static com.security.learning.security.ApplicationUserPermission.*;
 import static com.security.learning.security.ApplicationUserRole.*;
 
@@ -46,7 +48,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/courses", true)
                 .and()
-                .rememberMe(); //default to 2 weeks
+                .rememberMe().tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21)) //extends session to 21 days
+                .key("smthverysecured"); //key which is used for md5 hash
     }
 
     @Override
