@@ -43,7 +43,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin(); //switching to form based auth
+                .formLogin().loginPage("/login").permitAll(); //switching to form based auth
     }
 
     @Override
