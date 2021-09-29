@@ -19,7 +19,6 @@ import static com.security.learning.security.ApplicationUserRole.*;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) // to use preauthorize annotation on method level
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -27,16 +26,20 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /*
+        CSRF - cross site request forgery(falsifikim) - the action of forging a copy or imitation of a doc, signature banknote
+        by default CSRF is enabled. client logins, the server sends back a CSRF token, then the frontend (client)
+        must submit form with token so that the server can validate if token sent and received is the same
+         */
         http
                 .csrf().disable()
                 .authorizeRequests()
-                //THE ORDER THAT WE DEFINE MATCHES MATTERS, it goes thru the matchers one by one
                 .antMatchers("/", "index", "/css/", "/js").permitAll()
                 .antMatchers("/api/**").hasRole(ApplicationUserRole.STUDENT.name())
-//                .antMatchers(HttpMethod.GET, "/management/**").hasAnyRole(ADMIN.name(), TRAINEE.name())
-//                .antMatchers(HttpMethod.POST, "/management/**").hasAuthority(COURSE_WRITE.getPermission())
-//                .antMatchers(HttpMethod.PUT, "/management/**").hasAuthority(COURSE_WRITE.getPermission())
-//                .antMatchers(HttpMethod.DELETE, "/management/**").hasAuthority(COURSE_WRITE.getPermission())
+                .antMatchers(HttpMethod.GET, "/management/**").hasAnyRole(ADMIN.name(), TRAINEE.name())
+                .antMatchers(HttpMethod.POST, "/management/**").hasAuthority(COURSE_WRITE.getPermission())
+                .antMatchers(HttpMethod.PUT, "/management/**").hasAuthority(COURSE_WRITE.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/management/**").hasAuthority(COURSE_WRITE.getPermission())
                 .anyRequest()
                 .authenticated()
                 .and()

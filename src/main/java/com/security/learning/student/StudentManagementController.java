@@ -22,25 +22,25 @@ public class StudentManagementController {
 
     // use permission based auth on method level
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TRAINEE')")
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TRAINEE')")
     public List<Student> getAllStudents(){
         return STUDENTS_LIST;
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('student:write')")
+    //@PreAuthorize("hasAuthority('student:write')")
     public void addNewStudent(@RequestBody Student student){
         System.out.println(student);
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasAuthority('student:write')")
+    //@PreAuthorize("hasAuthority('student:write')")
     public void deleteStudent(@PathVariable("id") Integer studentId){
         System.out.println(studentId);
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("hasAuthority('student:write')")
+    //@PreAuthorize("hasAuthority('student:write')")
     public void updateStudent(@PathVariable("id") Integer studentId, @RequestBody Student student){
         System.out.println(String.format("%s %s", studentId, student));
     }
