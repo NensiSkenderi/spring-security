@@ -45,12 +45,16 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/courses", true)
+                    .formLogin()
+                    .loginPage("/login").permitAll()
+                    .defaultSuccessUrl("/courses", true)
+                    .passwordParameter("password") //taken from name of login.html, example : <input type="password" id="password" name="password"
+                    .usernameParameter("usernameNensi")
                 .and()
                 .rememberMe()
                     .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21)) //extends session to 21 days
                     .key("smthverysecured")
+                    .rememberMeParameter("remember-me")
                 .and()
                 .logout()
                         .logoutUrl("/logout") //not a best practice to use GET for loging out
