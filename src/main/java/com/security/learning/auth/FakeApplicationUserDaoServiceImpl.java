@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository("fake") //repository tells spring that this class needs to be instantiated
 //and the name fake is what you use when you autowire in case you have more than 1 impl
-public class FakeApplicationUserDaoService implements ApplicationUserDao {
+public class FakeApplicationUserDaoServiceImpl implements ApplicationUserDaoService {
 
     @Autowired // Field injection is not recommended  ?? check this
     private PasswordEncoder passwordEncoder;

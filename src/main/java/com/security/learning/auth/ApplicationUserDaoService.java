@@ -2,6 +2,6 @@ package com.security.learning.auth;
 
 import java.util.Optional;
 
-public interface ApplicationUserDao {
+public interface ApplicationUserDaoService {
     Optional<ApplicationUser> selectAppUserByUsername(String username);
 }
