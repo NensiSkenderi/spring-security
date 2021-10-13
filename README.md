@@ -5,7 +5,7 @@ Leaning spring security by following course: https://www.youtube.com/watch?v=her
 
 ## Technologies used: 
 
-  * Kotlin
+  * Java
   * Spring Boot
   * Rest API
   * Spring Security OAuth2
