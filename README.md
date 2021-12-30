@@ -1,7 +1,7 @@
 # Spring Security
 
 ## About The Project
-Leaning spring security by following course: https://www.youtube.com/watch?v=her_7pa0vrg&amp;t=13031s
+Learning spring security by following course: https://www.youtube.com/watch?v=her_7pa0vrg&amp;t=13031s
 
 ## Technologies used: 
 
